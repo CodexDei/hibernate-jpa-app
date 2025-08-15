@@ -6,7 +6,7 @@ import org.codexdei.hibernateapp.util.JpaUtil;
 
 import java.util.List;
 
-public class HibernateList {
+public class ListHibernate {
 
     public static void main(String[] args) {
 

@@ -20,18 +20,50 @@ public class Customer {
     @Column(name = "apellido")
     private String lastName;
     @Column(name = "forma_pago")
-    private String payment_method;
+    private String paymentMethod;
 
     //siempre que se usa entity y se tenga un constructor con parametros se
     // tiene que implementar un constructor vacio, sino al crear un objeto tipo Cliente lanara un error
     public Customer() {
     }
 
-    public Customer(Long id, String name, String lastName, String payment_method) {
+    public Customer(Long id, String name, String lastName, String paymentMethod) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.payment_method = payment_method;
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     @Override
@@ -39,7 +71,6 @@ public class Customer {
         return  "idCustumer=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", payment_method=" + payment_method +
-                '}';
+                ", payment_method=" + paymentMethod;
     }
 }
