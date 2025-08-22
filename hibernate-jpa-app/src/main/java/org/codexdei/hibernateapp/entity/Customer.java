@@ -27,6 +27,11 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String name, String lastName){
+        this.name = name;
+        this.lastName = lastName;
+    }
+
     public Customer(Long id, String name, String lastName, String paymentMethod) {
         this.id = id;
         this.name = name;
