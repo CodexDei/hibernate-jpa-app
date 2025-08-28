@@ -1,6 +1,10 @@
 package org.codexdei.hibernateapp.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 //relaciona esta clase con la table en la DB o BD
 @Entity
 //Como el nombre de la clase es diferente al de la DB se
@@ -21,6 +25,9 @@ public class Customer {
     private String lastName;
     @Column(name = "forma_pago")
     private String paymentMethod;
+    //COn la siguiente anotacion puede utilizar los atributos de otra clase que tenga la anotacion "@Embeddable"
+    @Embedded
+    private Audit audit = new Audit();
 
     //siempre que se usa entity y se tenga un constructor con parametros se
     // tiene que implementar un constructor vacio, sino al crear un objeto tipo Cliente lanara un error
@@ -76,6 +83,8 @@ public class Customer {
         return  "idCustomer=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", payment_method=" + paymentMethod;
+                ", payment_method=" + paymentMethod +
+                ", cretedIn='" + audit.getCreatedIn() + '\'' +
+                ", editedIn='" + audit.getEditedIn() + '\'';
     }
 }

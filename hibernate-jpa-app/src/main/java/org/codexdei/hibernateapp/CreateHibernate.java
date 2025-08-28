@@ -14,9 +14,9 @@ public class CreateHibernate {
 
         try{
 
-            String name = JOptionPane.showInputDialog("Input name");
-            String lastName = JOptionPane.showInputDialog("Input lastName");
-            String payment = JOptionPane.showInputDialog("Input payment");
+            String name = JOptionPane.showInputDialog("Input name:");
+            String lastName = JOptionPane.showInputDialog("Input lastName:");
+            String payment = JOptionPane.showInputDialog("Input payment:");
 
             em.getTransaction().begin();
             Customer customer = new Customer();
