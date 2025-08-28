@@ -8,6 +8,7 @@ import org.hibernate.hql.internal.ast.tree.IdentNode;
 import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToStdout;
 import org.w3c.dom.ls.LSOutput;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,9 +60,9 @@ public class HibernateQL {
         });
 
         System.out.println("============== Query by customer and payment method ================");
-        registries = em.createQuery("select c, c.paymentMethod from Customer c",Object[].class)
+        registries = em.createQuery("select c, c.paymentMethod from Customer c", Object[].class)
                 .getResultList();
-        registries.forEach(reg ->{
+        registries.forEach(reg -> {
             Customer c = (Customer) reg[0];
             String payment = (String) reg[1];
             System.out.println("Payment Metrod=" + payment + "," + c);
@@ -81,7 +82,7 @@ public class HibernateQL {
         System.out.println("============== Query with the names of customers ================");
         List<String> names = em.createQuery("select c.name from Customer c", String.class)
                 .getResultList();
-        names.forEach(System.out::println   );
+        names.forEach(System.out::println);
 
         System.out.println("============== Query with distinct customers names ================");
         names = em.createQuery("select distinct(c.name) from Customer c", String.class)
@@ -94,7 +95,7 @@ public class HibernateQL {
         paymentsDistinct.forEach(System.out::println);
 
         System.out.println("============== Query to count the payment method  ================");
-        Long paymmentMethodNumber = em.createQuery("select count(distinct c.paymentMethod) from Customer c",Long.class)
+        Long paymmentMethodNumber = em.createQuery("select count(distinct c.paymentMethod) from Customer c", Long.class)
                 .getSingleResult();
         System.out.println("Number payment method: " + paymmentMethodNumber);
 
@@ -111,12 +112,12 @@ public class HibernateQL {
         names.forEach(System.out::println);
 
         System.out.println("================== Query with name and lastName upper concatenated ==============");
-        names = em.createQuery("select upper(concat(c.name,' ',c.lastName)) as namelastname from Customer c",String.class)
+        names = em.createQuery("select upper(concat(c.name,' ',c.lastName)) as namelastname from Customer c", String.class)
                 .getResultList();
         names.forEach(System.out::println);
 
         System.out.println("================== Query with name and lastName lower concatenated ==============");
-        names = em.createQuery("select lower(concat(c.name,' ',c.lastName)) as namelastname from Customer c",String.class)
+        names = em.createQuery("select lower(concat(c.name,' ',c.lastName)) as namelastname from Customer c", String.class)
                 .getResultList();
         names.forEach(System.out::println);
 
@@ -126,7 +127,7 @@ public class HibernateQL {
         //mysql no es sensible a mayusculas o minusculas por lo que se podria escribir en mayusculas o minusculas
         //se coloca "upper" para convertir a mayusculas, ES UNA BUENA PRACTICA PARA CASOS DONDE SE USO OTRO MOTOR SQL que
         //no sea mysql y que si sea sensible a mayusculas o minusculas
-        customers = em.createQuery("select c from Customer c where upper(c.name) like upper(:parameter)",Customer.class)
+        customers = em.createQuery("select c from Customer c where upper(c.name) like upper(:parameter)", Customer.class)
                 //los porcentajes("%")se colocan para que busque coincidencias en todo el nombre, sino se colocan
                 //no hace la busqueda
                 .setParameter("parameter", "%" + param + "%")
@@ -203,7 +204,7 @@ public class HibernateQL {
 
         System.out.println("================== Query the shortest name and its length ==============");
         registries = em.createQuery("select c.name, length(c.name) from Customer c where " +
-                                        "length(c.name) = (select min(length(c.name)) from Customer c)", Object[].class)
+                        "length(c.name) = (select min(length(c.name)) from Customer c)", Object[].class)
                 .getResultList();
         registries.forEach(reg -> {
             String nam = (String) reg[0];
@@ -211,7 +212,32 @@ public class HibernateQL {
             System.out.println("Shortest name:" + nam + ", length: " + length);
         });
 
+        System.out.println("================== Query the largest name its length ==============");
+        registries = em.createQuery("select c.name, length(c.name) from Customer c where " +
+                        "length(c.name) = (select max(length(c.name)) from Customer c)", Object[].class)
+                .getResultList();
+        registries.forEach(reg -> {
+            String na = (String) reg[0];
+            Integer leng = (Integer) reg[1];
+            System.out.println("Largest name:" + na + ", length:" + leng);
+        });
 
+        System.out.println("================== Query to get the last record ==============");
+        Customer lastCustomer = em.createQuery("select c from Customer c where c.id = (select max(c.id) from Customer c)", Customer.class)
+                .getSingleResult();
+        System.out.println("last record: " + lastCustomer);
+
+        System.out.println("================== Query where in ==============");
+        //consulta que permite buscar ciertos datos dentro de una lista, array, etc
+        customers = em.createQuery("select c from Customer c where c.id in :ids", Customer.class)
+                .setParameter("ids", Arrays.asList(1L,2L,3L, 7L))
+                .getResultList();
+        customers.forEach(System.out::println);
+
+        customers = em.createQuery("select c from Customer c where c.lastName in :lastnames",Customer.class)
+                .setParameter("lastnames", Arrays.asList("Castillo", "Hortua", "Oyola"))
+                .getResultList();
+        customers.forEach(System.out::println);
 
         //Cerramos conexion
         em.close();

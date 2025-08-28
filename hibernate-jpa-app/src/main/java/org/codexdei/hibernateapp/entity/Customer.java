@@ -73,7 +73,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return  "idCustumer=" + id +
+        return  "idCustomer=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", payment_method=" + paymentMethod;
