@@ -1,0 +1,15 @@
+INSERT INTO clientes VALUES (id, nombre, apellido, forma_pago, creado_en, editado_en)
+(1,'Luis','Castillo','credito',NULL,NULL),
+(2,'Maye','Hortua','credito',NULL,NULL),
+(3,'Samy','Sion','debito',NULL,NULL),
+(4,'Jeysson','Oyola','debito',NULL,NULL),
+(5,'Johana','Cardenas','paypal',NULL,NULL),
+(6,'Melvin','Cayama','paypal',NULL,NULL),
+(7,'Andrea','Castillo','nequi',NULL,NULL),
+(8,'Pepe','Ganga','debito',NULL,NULL),
+(9,'Robinson','Saboya','nequi',NULL,NULL),
+(10,'Dixon','Oyola','nequi',NULL,NULL),
+(17,'Luis','Suarez','credito',NULL,'2025-08-28 13:14:41'),
+(18,'Luz','Pastrana','nequi',NULL,NULL),
+(19,'William','Romero','debito','2025-08-28 00:00:00','2025-08-28 00:00:00'),
+(20,'Dario','Castillo','paypal','2025-08-28 16:07:38',NULL);

@@ -80,11 +80,15 @@ public class Customer {
 
     @Override
     public String toString() {
+
+        LocalDateTime created = this.audit != null ? audit.getCreatedIn() : null;
+        LocalDateTime edited = this.audit != null ? audit.getEditedIn() : null;
+
         return  "idCustomer=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", payment_method=" + paymentMethod +
-                ", cretedIn='" + audit.getCreatedIn() + '\'' +
-                ", editedIn='" + audit.getEditedIn() + '\'';
+                ", cretedIn='" + created + '\'' +
+                ", editedIn='" + edited + '\'';
     }
 }

@@ -12,6 +12,10 @@
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
+            <!-- IMPORTANTE: al usar "drop-and-create" el proveedor JPA elimina el esquema existente y lo recrea
+                 desde los mapeos de las entidades al iniciar la unidad de persistencia (provoca pérdida de datos).
+                 Úsalo solo en desarrollo/pruebas; en producción usa 'none' o gestiona cambios con migraciones (Flyway/Liquibase). -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
         </properties>
     </persistence-unit>
 </persistence>
